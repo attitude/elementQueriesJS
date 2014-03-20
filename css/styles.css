@@ -97,6 +97,7 @@ h6 {
 .media-experience-since-tablet #masthead:after {
   clear: both;
 }
+.media-experience-phone--large .site-branding,
 .media-experience-since-tablet .site-branding {
   float: none;
   margin: 0 auto;
