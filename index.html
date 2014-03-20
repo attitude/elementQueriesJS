@@ -5,7 +5,7 @@
         <link rel='stylesheet' id='sorbet-pt-serif-css'  href='http://fonts.googleapis.com/css?family=PT+Serif%3A400%2C700%2C400italic%2C700italic&#038;subset=latin%2Clatin-ext&#038;ver=3.8.1' type='text/css' media='all' />
         <link rel='stylesheet' href="css/styles.css" type="text/css" media="all" />
     </head>
-    <body class="media-width-10 media-experience-since-phone media-experience-since-tablet media-experience-tablet media-experience-tablet--medium">
+    <body class="media-experience-width-10 media-experience-since-phone media-experience-since-tablet media-experience-tablet media-experience-tablet--medium">
         <div id="page" class="hfeed site">
             <header id="masthead" class="site-header" role="banner">
                 <a id="logo" href="http://www.martinadamko.sk/" rel="home">
@@ -22,44 +22,22 @@
                 <div id="primary" class="content-area">
                     <main id="main" class="site-main" role="main">
                         <article>
-                            <p class="intro">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer fringilla sem a urna porttitor fringilla. Nulla eget justo felis. </p>
-                            <p><a href="#">Aliquam erat volutpat.</a> Mauris vulputate scelerisque feugiat. Cras a erat a diam venenatis aliquam. Sed tempus, purus ac pretium varius, risus orci sagittis purus, quis auctor libero magna nec magna. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Maecenas eros dolor, rutrum eu sollicitudin eu, commodo at leo. Suspendisse potenti. Sed eu nibh sit amet quam auctor feugiat vel et risus. Maecenas eu urna adipiscing neque dictum mollis suscipit in augue. Praesent pulvinar condimentum sagittis. Maecenas laoreet neque non eros consectetur fringilla. Donec vitae risus leo, vitae pharetra ipsum. Sed placerat eros eget elit iaculis semper. Aliquam congue blandit orci ac pretium.</p>
-                            <img src="../../images/fpo_16x9.png" alt="16x9 Image">
-                            <p>Aliquam ultrices cursus mauris, eget volutpat justo mattis nec. Sed a orci turpis. Aliquam aliquet placerat dui, consectetur tincidunt leo tristique et. Vivamus enim nisi, blandit a venenatis quis, convallis et arcu. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris libero sapien, placerat in sodales eu, tempor quis dui. Vivamus egestas faucibus pulvinar. Maecenas eget diam nunc. Phasellus at sem eros, ac suscipit neque. Phasellus sollicitudin libero a odio dignissim scelerisque. Aliquam purus nulla, tempor eget ullamcorper quis, rhoncus non dui.</p>
-                            <blockquote>
-                                <p>A block quotation (also known as a long quotation or extract) is a quotation in a written document, that is set off from the main text as a paragraph, or block of text, and typically distinguished visually using indentation and a different typeface or smaller size quotation.</p>
-                            </blockquote>
-                            <p>Cras at fringilla ipsum. Donec nec libero eget est blandit dignissim a eu ante. Morbi augue nulla, luctus eu sagittis vel, malesuada ut felis. Aliquam erat volutpat. Morbi malesuada augue ac massa hendrerit fermentum. Integer scelerisque lacus a dolor convallis lobortis. Curabitur mollis ante in massa ultricies dignissim.</p>
-                            <div class="text">
+                            <h1>This is a demo version of <a href="https://github.com/attitude/mediaexperienceJS" target="_blank">mediaexperience.JS</a> script: a media queries addition based on javascript.</h1>
+                            <p class="intro">mediaexperience.JS is like <a href="http://www.paulirish.com/2009/avoiding-the-fouc-v3/" target="_blank">no-js</a> for mediaqueries. Media queries are the future of course. The support is wide in most of the browsers except the old IEs.</p>
+                                <h2>Opt-out from responsice experience</h2>
+                                <p>I assume most of us never thought about disabling responsiveness when building a responsive website. But there are scenarios, where mobile experience is not sufficient but the client has no way to opt-out. It's just because you did not thought about it when writing your CSS.</p>
+                                    <h3>Inspired by conditional classes of modernizr</h3>
+                                    <p>You can watch any element for it's size and respond to it. You are not constrained to the screen size. You can however watch body for size and apply screen experience classes to the body element.</p>
+                                <h2>No-mediaqueries fall-back</h2>
+                                <p>As with no-js approach, you can hardcode the initial experience for any element. Try toggling button and try resizing the browser:</p>
+                                <p><a class="button" id="toggle-experience"><span class="disable">Disable</span><span class="enable">Enable</span></a></p>
+                                <h2>Ideas how to improve?</h2>
                                 <ul>
-                                    <li>This is a list item in an unordered list</li>
-                                    <li>An unordered list is a list in which the sequence of items is not important. Sometimes, an unordered list is a bulleted list. And this is a long list item in an unordered list that can wrap onto a new line. </li>
-                                    <li>
-                                        Lists can be nested inside of each other
-                                        <ul>
-                                            <li>This is a nested list item</li>
-                                            <li>This is another nested list item in an unordered list</li>
-                                        </ul>
-                                    </li>
-                                    <li>This is the last list item</li>
+                                    <li>Tweet me <a href="http://twitter.com/martin_adamko">@martin_adamko</a></li>
+                                    <li>Open an issue on <a href="https://github.com/attitude/mediaexperienceJS" target="_blank">project's github.com repository</a>, fork, hack and pull request.</li>
                                 </ul>
-                            </div>
-                            <div class="text">
-                                <ol>
-                                    <li>This is a list item in an ordered list</li>
-                                    <li>An ordered list is a list in which the sequence of items is important. An ordered list does not necessarily contain sequence characters.</li>
-                                    <li>
-                                        Lists can be nested inside of each other
-                                        <ol>
-                                            <li>This is a nested list item</li>
-                                            <li>This is another nested list item in an ordered list</li>
-                                        </ol>
-                                    </li>
-                                    <li>This is the last list item</li>
-                                </ol>
-                            </div>
-                            <p>Donec posuere fringilla nunc, vitae venenatis diam scelerisque vel. Nullam vitae mauris magna. Mauris et diam quis justo volutpat tincidunt congue nec magna. Curabitur vitae orci elit. Ut mollis massa id magna vestibulum consequat. Proin rutrum lectus justo, sit amet tincidunt est. Vivamus vitae lacinia risus.</p>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis, suscipit repellendus nulla accusantium deserunt sed explicabo voluptate sapiente ratione inventore molestiae nihil earum repellat quia odit vitae perspiciatis aliquam amet?</p>
+                                <p>Thanks for your interest.</p>
+                                <p class="intro">Martin</p>
                         </article>
                     </main><!-- #main -->
                 </div><!-- #primary -->
@@ -88,5 +66,14 @@
         <script type='text/javascript' src="js/vendor/h5bp/modernizr-2.7.1.min.js"></script>
         <script type='text/javascript' src="js/vendor/jquery/jquery-2.1.0.min.js"></script>
         <script type='text/javascript' src="js/scripts.js"></script>
+        <script type="text/javascript">
+            var $body = $('body');
+            $('#toggle-experience').on('click', function(e) {
+                e.preventDefault();
+
+                $body.toggleClass('media-experience-disabled');
+                $(window).trigger('resize');
+            });
+        </script>
     </body>
 </html>

@@ -41,6 +41,10 @@ var mediaExperience = function(options, breakpoints) {
         resize: function() {
             var self = this;
 
+            if ($(self.target).hasClass(self.options.prefix+'-disabled')) {
+                return;
+            }
+
             var widths  = parseInt($(self.target).width() / self.options.horizontalModule);
             var heights = parseInt($(self.target).height() / self.options.verticalModule);
 

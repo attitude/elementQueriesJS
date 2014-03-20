@@ -53,6 +53,18 @@ img {
     vertical-align: bottom;
 }
 
+h1 { font-size: 3em; }
+h2 { font-size: 2.5em; }
+h3 { font-size: 2em; }
+h4 { font-size: 1.5em; }
+h5 { font-size: 1.25em; }
+h6 { font-size: 1.125em; }
+
+.intro {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
 #masthead,
 #colophon {
     background: white;
@@ -168,5 +180,28 @@ img {
     }
     #secondary {
         overflow: hidden;
+    }
+}
+
+.button {
+    background: white;
+    border-radius: 3px;
+    color: @brand-color;
+    display: inline-block;
+    padding: 1em 3em;
+}
+
+#toggle-experience {
+    .disable {
+        .media-experience-disabled & {
+            display: none;
+        }
+    }
+    .enable {
+        display: none;
+
+        .media-experience-disabled & {
+            display: initial;
+        }
     }
 }
