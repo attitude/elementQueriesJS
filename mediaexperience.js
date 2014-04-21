@@ -125,7 +125,7 @@
             // console.log(widths, heights, self.config.horizontalModule, self.config.verticalModule);
             // console.log('resize();');
         }
-    }
+    };
 
     MediaExperience.defaults = MediaExperience.prototype.defaults;
 
