@@ -72,6 +72,9 @@
                 return;
             }
 
+            // console.log($(self.$elem));
+            // console.trace();
+
             var classes = [];
 
             var widths  = parseInt($(self.$elem).width() / self.config.horizontalModule, 10);
@@ -145,42 +148,47 @@
             n, // length
             // groups of active instances by number of parents
             mediaExperienceParents = {
-                'indexes': [],
-                'indexItems': []
+                'counts': [],
+                'parentsCountOf': []
             },
             // stores count of parents (num of instances depending on)
-            parentsCount;
+            parentsCountOf;
 
         l = allMediaExperienceElements.length;
 
         for (i = 0; i < l; i++) {
             parentsCount = allMediaExperienceElements[i].$elem.parents('.responds-to-media-experience').length;
 
-            if (typeof mediaExperienceParents.indexItems[parentsCount]==='undefined') {
-                mediaExperienceParents.indexItems[parentsCount] = [];
-                mediaExperienceParents.indexes.push(parentsCount);
+            // Create empty array if not yet exists...
+            if (typeof mediaExperienceParents.parentsCountOf[parentsCount]==='undefined') {
+                mediaExperienceParents.parentsCountOf[parentsCount] = [];
             }
+            // ... and rememter the element's index
+            mediaExperienceParents.parentsCountOf[parentsCount].push(i);
 
-            mediaExperienceParents.indexItems[parentsCount].push(i);
+            // Remember what possible counts we encountered
+            if (mediaExperienceParents.counts.indexOf(parentsCount) === -1) {
+                mediaExperienceParents.counts.push(parentsCount);
+            }
         }
 
         // Sort number of parents
-        mediaExperienceParents.indexes.sort();
+        mediaExperienceParents.counts.sort();
 
         // console.log(mediaExperienceParents);
 
-        l = mediaExperienceParents.indexes.length;
+        l = mediaExperienceParents.counts.length;
 
         for (i = 0; i < l; i++) {
-            parentsCount = mediaExperienceParents.indexes[i];
+            parentsCount = mediaExperienceParents.counts[i];
 
-            // console.log('parentsCount:' + parentsCount);
+            // console.log('parentsCountOf:' + parentsCount);
 
-            n = mediaExperienceParents.indexItems[parentsCount].length;
+            n = mediaExperienceParents.parentsCountOf[parentsCount].length;
 
             for (j = 0; j < n; j++) {
                 // console.log('iteration: ' + j);
-                allMediaExperienceElements[j].resize();
+                allMediaExperienceElements[ mediaExperienceParents.parentsCountOf[parentsCount][j] ].resize();
             }
         }
     }
