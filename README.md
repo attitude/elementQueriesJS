@@ -108,6 +108,7 @@ On the other hand, request with `?experience=phone` will result in:
 
 ## Changelog
 
+- v0.2.1 - Fixes to previous release
 - v0.2.0 - Complete rewrite
   - More instances = element queries
   - [Google Closure Compiler][GCC] used to [minify javascript][GCCApp]
