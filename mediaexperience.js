@@ -51,7 +51,7 @@
                 'desktop--medium':   18, // 80 x 15...18 = 1120 <= ? < 1440
                 'desktop--large':    24, // 80 x 17...24 = 1440 <= ? < 1920
               'oversized-desktop':   24  // 80 x 24 = 1920
-            }
+          }
         },
 
         init: function() {
@@ -66,7 +66,15 @@
         },
 
         resize: function() {
-            var self = this;
+            var self = this,
+                classes = [],
+                width,
+                widths,
+                height,
+                heights,
+                lastBreakpoint,
+                lastMajorBreakpoint,
+                lastMajorHeightBreakpoint;
 
             if ($(self.$elem).hasClass('media-experience-disabled')) {
                 return;
@@ -75,38 +83,57 @@
             // console.log($(self.$elem));
             // console.trace();
 
-            var classes = [];
-
-            var widths  = parseInt($(self.$elem).width() / self.config.horizontalModule, 10);
+            width   = $(self.$elem).width();
+            widths  = parseInt(width / self.config.horizontalModule, 10);
             classes.push(self.config.prefix+'-width-'+widths);
 
             if (!! self.config.calculateVertical) {
-                var heights = parseInt($(self.$elem).height() / self.config.verticalModule, 10);
+                height  = $(self.$elem).height();
+                heights = parseInt(height / self.config.verticalModule, 10);
                 classes.push(self.config.prefix+'-height-'+heights);
             }
 
             if (self.config.useBreakpoints) {
-                var lastBreakpoint = 0;
-                var lastMajorBreakpoint = 0;
+                lastBreakpoint = lastMajorBreakpoint = lastMajorHeightBreakpoint = 0;
 
                 for (var attrname in self.config.breakpoints) {
-                    // console.log('lastMajorBreakpoint', lastMajorBreakpoint, 'lastBreakpoint', lastBreakpoint, 'widths', widths, attrname, self.config.breakpoints[attrname])
-
+                    // console.log('lastMajorBreakpoint', lastMajorBreakpoint, 'lastBreakpoint', lastBreakpoint, 'widths', widths, attrname, self.config.breakpoints[attrname]);
+                    // Variations of the major breakpoint
                     if (attrname.match(/--/)) {
-                        // Variations of the major breakpoint
                         if (lastBreakpoint <= widths && widths < self.config.breakpoints[attrname]) {
-                            classes.unshift(self.config.prefix+'-'+attrname);
-                        }
-                    } else if (self.config.breakpoints[attrname] <= widths) {
-                        // Major breakpoints
-                        if (self.config.useSince && typeof self.config.useSince === 'string') {
-                            // All major breakpoints: mobile first approach
-                            classes.push(self.config.prefix+'-'+self.config.useSince+'-'+attrname);
+                            classes.push(self.config.prefix+'-'+attrname);
                         }
 
+                        if (!! self.config.calculateVertical) {
+                            if (lastBreakpoint <= heights && heights < self.config.breakpoints[attrname]) {
+                                classes.push(self.config.prefix+'-'+attrname+'-height');
+                            }
+                        }
+                    } else {
                         if (self.config.breakpoints[attrname] <= widths) {
-                            // Only current major breakpoint (remember it)
-                            lastMajorBreakpoint = attrname;
+                            // Major breakpoints
+                            if (self.config.useSince && typeof self.config.useSince === 'string') {
+                                // All major breakpoints: mobile first approach
+                                classes.push(self.config.prefix+'-'+self.config.useSince+'-'+attrname);
+                            }
+
+                            if (self.config.breakpoints[attrname] <= widths) {
+                                // Only current major breakpoint (remember it)
+                                lastMajorBreakpoint = attrname;
+                            }
+                        }
+
+                        if (!! self.config.calculateVertical && self.config.breakpoints[attrname] <= heights) {
+                            // Major breakpoints
+                            if (self.config.useSince && typeof self.config.useSince === 'string') {
+                                // All major breakpoints: mobile first approach
+                                classes.push(self.config.prefix+'-'+self.config.useSince+'-'+attrname+'-height');
+                            }
+
+                            if (self.config.breakpoints[attrname] <= heights) {
+                                // Only current major breakpoint (remember it)
+                                lastMajorHeightBreakpoint = attrname;
+                            }
                         }
                     }
 
@@ -115,7 +142,11 @@
             }
 
             // Add current major breakpoint
-            classes.unshift(self.config.prefix+'-'+lastMajorBreakpoint);
+            classes.push(self.config.prefix+'-'+lastMajorBreakpoint);
+            classes.push(self.config.prefix+'-'+lastMajorHeightBreakpoint+'-height');
+
+            // Orientation
+            classes.push(self.config.prefix+'-orientation-'+ (width > height ? 'horizontal' : 'vertical'));
 
             // Build the classes
             classes = classes.join(' ');

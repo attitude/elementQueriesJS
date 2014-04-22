@@ -2,7 +2,7 @@ mediaexperience.JS
 ==================
 
 Media queries in javascript with noscript and IE fallback.
-Only 1.6 KB when minified, 0.8 KB gzipped.
+Only 2 KB when minified, 0.89 KB gzipped.
 
 Any element can be watched for changes of width and height. This way you can
 design experience on element level instead of screen level.
@@ -108,6 +108,8 @@ On the other hand, request with `?experience=phone` will result in:
 
 ## Changelog
 
+- v0.2.2 - Add height breakpoints + orientation classes
+- v0.2.1 - Fixes to previous release
 - v0.2.0 - Complete rewrite
   - More instances = element queries
   - [Google Closure Compiler][GCC] used to [minify javascript][GCCApp]
