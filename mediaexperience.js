@@ -1,5 +1,5 @@
 /*!
- * mediaexperienceJS v0.2.0
+ * mediaexperienceJS v0.2.1
  *
  * Copyright 2014 Martin Adamko
  * Released under the MIT license
