@@ -143,10 +143,13 @@
 
             // Add current major breakpoint
             classes.push(self.config.prefix+'-'+lastMajorBreakpoint);
-            classes.push(self.config.prefix+'-'+lastMajorHeightBreakpoint+'-height');
 
-            // Orientation
-            classes.push(self.config.prefix+'-orientation-'+ (width > height ? 'horizontal' : 'vertical'));
+            if (self.config.calculateVertical) {
+                // Add current major vertical breakpoint
+                classes.push(self.config.prefix+'-'+lastMajorHeightBreakpoint+'-height');
+                // Orientation
+                classes.push(self.config.prefix+'-orientation-'+ (width > height ? 'horizontal' : 'vertical'));
+            }
 
             // Build the classes
             classes = classes.join(' ');
