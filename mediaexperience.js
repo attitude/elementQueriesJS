@@ -1,5 +1,5 @@
 /*!
- * mediaexperienceJS v0.2.1
+ * mediaexperienceJS v0.2.3
  *
  * Copyright 2014 Martin Adamko
  * Released under the MIT license
@@ -9,22 +9,23 @@
     /**
      * @constructor
      */
-    var MediaExperience = function( elem, options ){
-        this.elem = elem;
-        this.$elem = $(elem);
-        this.options = options;
+    var MediaExperience = function(elem, options) {
+            this.elem = elem;
+            this.$elem = $(elem);
+            this.options = options;
 
-        // Distinc
-        this.$elem.addClass('responds-to-media-experience');
+            // Distinc
+            this.$elem.addClass('responds-to-media-experience');
 
-        // Customization of the plugin on a per-element basis.
-        // <div data-mediaexperience-options='{prefix: "device"}'></div>
-        this.metadata = this.$elem.data( 'mediaexperience-options' );
-    },
+            // Customization of the plugin on a per-element basis.
+            // <div data-mediaexperience-options='{prefix: "device"}'></div>
+            this.metadata = this.$elem.data( 'mediaexperience-options' );
+        },
         // Array of all media experience instances
         allMediaExperienceElements = [],
         // timeout for onresize events
-        windowResizeTimeout;
+        windowResizeTimeout
+        ;
 
     // the plugin prototype
     MediaExperience.prototype = {
