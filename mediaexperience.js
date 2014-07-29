@@ -1,5 +1,5 @@
 /*!
- * mediaexperienceJS v0.2.3
+ * mediaexperienceJS v0.3.0
  *
  * Copyright 2014 Martin Adamko
  * Released under the MIT license
@@ -39,7 +39,8 @@
             useSince: 'since',
             // Columns to be true
             breakpoints: {
-              'phone':               0, // mobile first
+              'oldie':               0, // too tiny
+              'phone':               4, // mobile first
                 'phone--small':      4, // 80 x   0...4 =    0 <= ? < 320
                 'phone--medium':     6, // 80 x   5...6 =  320 <= ? < 480
                 'phone--large':      9, // 80 x   7...9 =  480 <= ? < 720
@@ -62,6 +63,9 @@
 
             this.regex  = new RegExp('\\b'+ this.config.prefix + '-\\S+', 'g');
             this.resize();
+
+            e = new Event('mediaexperiencechanged', {'bubbles': true});
+            document.dispatchEvent(e);
 
             return this;
         },
@@ -181,6 +185,7 @@
             j, // iterator
             l, // length
             n, // length
+            e, // event
             // groups of active instances by number of parents
             mediaExperienceParents = {
                 'counts': [],
@@ -226,6 +231,10 @@
                 allMediaExperienceElements[ mediaExperienceParents.parentsCountOf[parentsCount][j] ].resize();
             }
         }
+
+        e = new Event('mediaexperiencechanged', {'bubbles': true});
+        document.dispatchEvent(e);
+
     }
 
     $.fn.mediaExperience = function newMediaExperience(options) {
