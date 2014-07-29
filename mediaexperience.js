@@ -1,5 +1,5 @@
 /*!
- * mediaexperienceJS v0.2.0
+ * mediaexperienceJS v0.2.3
  *
  * Copyright 2014 Martin Adamko
  * Released under the MIT license
@@ -9,22 +9,23 @@
     /**
      * @constructor
      */
-    var MediaExperience = function( elem, options ){
-        this.elem = elem;
-        this.$elem = $(elem);
-        this.options = options;
+    var MediaExperience = function(elem, options) {
+            this.elem = elem;
+            this.$elem = $(elem);
+            this.options = options;
 
-        // Distinc
-        this.$elem.addClass('responds-to-media-experience');
+            // Distinc
+            this.$elem.addClass('responds-to-media-experience');
 
-        // Customization of the plugin on a per-element basis.
-        // <div data-mediaexperience-options='{prefix: "device"}'></div>
-        this.metadata = this.$elem.data( 'mediaexperience-options' );
-    },
+            // Customization of the plugin on a per-element basis.
+            // <div data-mediaexperience-options='{prefix: "device"}'></div>
+            this.metadata = this.$elem.data( 'mediaexperience-options' );
+        },
         // Array of all media experience instances
         allMediaExperienceElements = [],
         // timeout for onresize events
-        windowResizeTimeout;
+        windowResizeTimeout
+        ;
 
     // the plugin prototype
     MediaExperience.prototype = {
@@ -143,10 +144,13 @@
 
             // Add current major breakpoint
             classes.push(self.config.prefix+'-'+lastMajorBreakpoint);
-            classes.push(self.config.prefix+'-'+lastMajorHeightBreakpoint+'-height');
 
-            // Orientation
-            classes.push(self.config.prefix+'-orientation-'+ (width > height ? 'horizontal' : 'vertical'));
+            if (self.config.calculateVertical) {
+                // Add current major vertical breakpoint
+                classes.push(self.config.prefix+'-'+lastMajorHeightBreakpoint+'-height');
+                // Orientation
+                classes.push(self.config.prefix+'-orientation-'+ (width > height ? 'horizontal' : 'vertical'));
+            }
 
             // Build the classes
             classes = classes.join(' ');
