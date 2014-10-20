@@ -1,27 +1,29 @@
+/*jslint browser: true*/
 /*!
- * mediaexperienceJS v0.3.1
+ * mediaexperienceJS v0.3.2
  *
  * Copyright 2014 Martin Adamko
  * Released under the MIT license
  *
  */
-/*jslint browser: true*/
-(function($, window, document) {
+(function ($, window, document) {
+    'use strict';
     /**
      * @constructor
      */
-    var MediaExperience = function(elem, options) {
-        this.elem = elem;
-        this.$elem = $(elem);
-        this.options = options;
+    var console = window.console,
+        MediaExperience = function (elem, options) {
+            this.elem = elem;
+            this.$elem = $(elem);
+            this.options = options;
 
-        // Distinc
-        this.$elem.addClass('responds-to-media-experience');
+            // Distinc
+            this.$elem.addClass('responds-to-media-experience');
 
-        // Customization of the plugin on a per-element basis.
-        // <div data-mediaexperience-options='{prefix: "device"}'></div>
-        this.metadata = this.$elem.data('mediaexperience-options');
-    },
+            // Customization of the plugin on a per-element basis.
+            // <div data-mediaexperience-options='{prefix: "device"}'></div>
+            this.metadata = this.$elem.data('mediaexperience-options');
+        },
         // Array of all media experience instances
         allMediaExperienceElements = [],
         // timeout for onresize events
@@ -54,17 +56,15 @@
                     'counts': [],
                     'parentsCountOf': []
                 },
-                // stores count of parents (num of instances depending on)
-                parentsCountOf,
                 parentsCount;
 
             l = allMediaExperienceElements.length;
 
-            for (i = 0; i < l; i++) {
+            for (i = 0; i < l; i += 1) {
                 parentsCount = allMediaExperienceElements[i].$elem.parents('.responds-to-media-experience').length;
 
                 // Create empty array if not yet exists...
-                if (typeof mediaExperienceParents.parentsCountOf[parentsCount] === 'undefined') {
+                if (mediaExperienceParents.parentsCountOf[parentsCount] === undefined) {
                     mediaExperienceParents.parentsCountOf[parentsCount] = [];
                 }
                 // ... and rememter the element's index
@@ -83,14 +83,14 @@
 
             l = mediaExperienceParents.counts.length;
 
-            for (i = 0; i < l; i++) {
+            for (i = 0; i < l; i += 1) {
                 parentsCount = mediaExperienceParents.counts[i];
 
                 // console.log('parentsCountOf:' + parentsCount);
 
                 n = mediaExperienceParents.parentsCountOf[parentsCount].length;
 
-                for (j = 0; j < n; j++) {
+                for (j = 0; j < n; j += 1) {
                     // console.log('iteration: ' + j);
                     allMediaExperienceElements[mediaExperienceParents.parentsCountOf[parentsCount][j]].resize();
                 }
@@ -112,7 +112,7 @@
             useSince: 'since',
             // Columns to be true
             breakpoints: {
-                'oldie': 0, // too tiny
+                'watch': 0, // too tiny
                 'phone': 4, // mobile first
                 'phone--small': 4, // 80 x   0...4 =    0 <= ? < 320
                 'phone--medium': 6, // 80 x   5...6 =  320 <= ? < 480
@@ -129,7 +129,7 @@
             }
         },
 
-        init: function() {
+        init: function () {
             // Introduce defaults that can be extended either
             // globally or using an object literal.
             this.config = $.extend({}, this.defaults, this.options, this.metadata);
@@ -142,7 +142,7 @@
             return this;
         },
 
-        resize: function() {
+        resize: function () {
             var self = this,
                 classes = [],
                 width,
@@ -151,7 +151,8 @@
                 heights,
                 lastBreakpoint,
                 lastMajorBreakpoint,
-                lastMajorHeightBreakpoint;
+                lastMajorHeightBreakpoint,
+                attrname;
 
             if ($(self.$elem).hasClass('media-experience-disabled')) {
                 return;
@@ -164,8 +165,13 @@
             widths = parseInt(width / self.config.horizontalModule, 10);
             classes.push(self.config.prefix + '-width-' + widths);
 
-            if ( !! self.config.calculateVertical) {
-                height = $(self.$elem).height();
+            if (!!self.config.calculateVertical) {
+                console.log(self.$elem[0].nodeName.toLowerCase());
+                if (self.$elem[0].nodeName.toLowerCase() === 'body') {
+                    height = $(window).height();
+                } else {
+                    height = $(self.$elem).height();
+                }
                 heights = parseInt(height / self.config.verticalModule, 10);
                 classes.push(self.config.prefix + '-height-' + heights);
             }
@@ -173,48 +179,50 @@
             if (self.config.useBreakpoints) {
                 lastBreakpoint = lastMajorBreakpoint = lastMajorHeightBreakpoint = 0;
 
-                for (var attrname in self.config.breakpoints) {
-                    // console.log('lastMajorBreakpoint', lastMajorBreakpoint, 'lastBreakpoint', lastBreakpoint, 'widths', widths, attrname, self.config.breakpoints[attrname]);
-                    // Variations of the major breakpoint
-                    if (attrname.match(/--/)) {
-                        if (lastBreakpoint <= widths && widths < self.config.breakpoints[attrname]) {
-                            classes.push(self.config.prefix + '-' + attrname);
-                        }
-
-                        if ( !! self.config.calculateVertical) {
-                            if (lastBreakpoint <= heights && heights < self.config.breakpoints[attrname]) {
-                                classes.push(self.config.prefix + '-' + attrname + '-height');
-                            }
-                        }
-                    } else {
-                        if (self.config.breakpoints[attrname] <= widths) {
-                            // Major breakpoints
-                            if (self.config.useSince && typeof self.config.useSince === 'string') {
-                                // All major breakpoints: mobile first approach
-                                classes.push(self.config.prefix + '-' + self.config.useSince + '-' + attrname);
+                for (attrname in self.config.breakpoints) {
+                    if (self.config.breakpoints.hasOwnProperty(attrname)) {
+                        // console.log('lastMajorBreakpoint', lastMajorBreakpoint, 'lastBreakpoint', lastBreakpoint, 'widths', widths, attrname, self.config.breakpoints[attrname]);
+                        // Variations of the major breakpoint
+                        if (attrname.match(/--/)) {
+                            if (lastBreakpoint <= widths && widths < self.config.breakpoints[attrname]) {
+                                classes.push(self.config.prefix + '-' + attrname);
                             }
 
+                            if (!!self.config.calculateVertical) {
+                                if (lastBreakpoint <= heights && heights < self.config.breakpoints[attrname]) {
+                                    classes.push(self.config.prefix + '-' + attrname + '-height');
+                                }
+                            }
+                        } else {
                             if (self.config.breakpoints[attrname] <= widths) {
-                                // Only current major breakpoint (remember it)
-                                lastMajorBreakpoint = attrname;
+                                // Major breakpoints
+                                if (self.config.useSince && typeof self.config.useSince === 'string') {
+                                    // All major breakpoints: mobile first approach
+                                    classes.push(self.config.prefix + '-' + self.config.useSince + '-' + attrname);
+                                }
+
+                                if (self.config.breakpoints[attrname] <= widths) {
+                                    // Only current major breakpoint (remember it)
+                                    lastMajorBreakpoint = attrname;
+                                }
+                            }
+
+                            if (!!self.config.calculateVertical && self.config.breakpoints[attrname] <= heights) {
+                                // Major breakpoints
+                                if (self.config.useSince && typeof self.config.useSince === 'string') {
+                                    // All major breakpoints: mobile first approach
+                                    classes.push(self.config.prefix + '-' + self.config.useSince + '-' + attrname + '-height');
+                                }
+
+                                if (self.config.breakpoints[attrname] <= heights) {
+                                    // Only current major breakpoint (remember it)
+                                    lastMajorHeightBreakpoint = attrname;
+                                }
                             }
                         }
 
-                        if ( !! self.config.calculateVertical && self.config.breakpoints[attrname] <= heights) {
-                            // Major breakpoints
-                            if (self.config.useSince && typeof self.config.useSince === 'string') {
-                                // All major breakpoints: mobile first approach
-                                classes.push(self.config.prefix + '-' + self.config.useSince + '-' + attrname + '-height');
-                            }
-
-                            if (self.config.breakpoints[attrname] <= heights) {
-                                // Only current major breakpoint (remember it)
-                                lastMajorHeightBreakpoint = attrname;
-                            }
-                        }
+                        lastBreakpoint = self.config.breakpoints[attrname];
                     }
-
-                    lastBreakpoint = self.config.breakpoints[attrname];
                 }
             }
 
@@ -232,7 +240,7 @@
             classes = classes.join(' ');
 
             // Remove old prefix-matching classes and add new
-            self.$elem.removeClass(function(index, css) {
+            self.$elem.removeClass(function (index, css) {
                 return (css.match(self.regex) || []).join(' ');
             }).addClass(classes);
 
@@ -241,7 +249,7 @@
         }
     };
 
-    MediaExperience.triggerEvent = function() {
+    MediaExperience.triggerEvent = function () {
         if (window.CustomEvent) {
             triggerMediaExperienceChanged();
         } else {
@@ -263,7 +271,7 @@
     });
 
     $.fn.mediaExperience = function newMediaExperience(options) {
-        this.each(function() {
+        this.each(function () {
             var v = new MediaExperience(this, options).init();
 
             allMediaExperienceElements.push(v);
@@ -274,4 +282,4 @@
 
     // Allows overwriting of any sitewide plugin aspect like timeout
     window.MediaExperience = MediaExperience;
-})(window.jQuery, window, document);
+}(window.jQuery, window, document));
