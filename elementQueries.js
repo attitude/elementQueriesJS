@@ -114,18 +114,18 @@
             breakpoints: {
                 'watch': 0, // too tiny
                 'phone': 4, // mobile first
-                'phone.small': 4, // 80 x   0...4 =    0 <= ? < 320
-                'phone.medium': 6, // 80 x   5...6 =  320 <= ? < 480
-                'phone.large': 9, // 80 x   7...9 =  480 <= ? < 720
-                'tablet': 9, // 80 x  9 =  720
-                'tablet.small': 10, // 80 x  9...10 =  720 <= ? <  800
-                'tablet.medium': 11, // 80 x  9...10 =  720 <= ? <  800
-                'tablet.large': 13, // 80 x 11...12 =  800 <= ? <  960
-                'desktop': 13, // 80 x 13 =  960
-                'desktop.small': 14, // 80 x 13...14 =  960 <= ? < 1120
-                'desktop.medium': 18, // 80 x 15...18 = 1120 <= ? < 1440
-                'desktop.large': 24, // 80 x 17...24 = 1440 <= ? < 1920
-                'oversized-desktop': 24 // 80 x 24 = 1920
+                'phone.small': 5, //     80 x  4 < 5  ...    0 <= ? < 320
+                'phone.medium': 7, //    80 x  5 < 7  ...  320 <= ? < 480
+                'phone.large': 9, //     80 x  7 < 9  ...  480 <= ? < 720
+                'tablet': 9, // 80 x  9 ... >= 720
+                'tablet.small': 10, //   80 x  9 < 10 ...  720 <= ? <  800
+                'tablet.medium': 12, //  80 x 10 < 12 ...  800 <= ? <  960
+                'tablet.large': 13, //   80 x 12 < 13 ...  960 <= ? < 1040
+                'desktop': 13, // 80 x 13 ... >= 1040
+                'desktop.small': 14, //  80 x 13 < 14 ... 1040 <= ? < 1200
+                'desktop.medium': 18, // 80 x 15 < 18 ... 1200 <= ? < 1440
+                'desktop.large': 24, //  80 x 17 < 24 ... 1440 <= ? < 1920
+                'oversized-desktop': 24 // 80 x 24 >= 1920
             }
         },
 
