@@ -1,4 +1,4 @@
-elementqueries.JS
+elementQueries.JS
 ==================
 
 Media queries in javascript with noscript and IE fallback.
