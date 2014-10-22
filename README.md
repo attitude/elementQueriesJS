@@ -1,4 +1,4 @@
-mediaexperience.JS
+elementqueries.JS
 ==================
 
 Media queries in javascript with noscript and IE fallback.
@@ -24,19 +24,19 @@ it appropriately.
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.0.min.js"><\/script>')</script>
 
-<!-- Include mediaexperience.js -->
-<script src="//js/mediaexperience.min.js"></script>
+<!-- Include elementqueries.js -->
+<script src="//js/elementQueries.min.js"></script>
 
 <!-- Add instances to watch for elements -->
 <script type="text/javascript">
-    $('body').mediaExperience({useBreakpoints: true, prefix: "media-experience"});
-    $('#search').mediaExperience({prefix: "el"});
+    $('body').elementQueries({useBreakpoints: true, prefix: "media-"});
+    $('#search').elementQueries({prefix: "el-"});
 </script>
 ```
 
 # Demo
 
-[Temporary demo](http://www.martinadamko.sk/projects/mediaexperience.js/)
+[Temporary demo](http://www.martinadamko.sk/projects/elementqueries.js/)
 
 ## Why
 
@@ -45,7 +45,7 @@ Writing conditional CSS for this plugin has few other beneficial side-effects:
 
 1. You can use any server-side to render classes needed to display the
    site correctly and thus support even legacy devides.
-1. By adding 'media-experience-disabled' class you can pause this plugin from
+1. By adding 'eq-off' class you can pause this plugin from
    processing.
 1. You can even add experience switcher independent from the screen size that
    could allow users to switch best experience they need even without javascript.
@@ -58,7 +58,7 @@ Writing conditional CSS for this plugin has few other beneficial side-effects:
 If javascript is enabled and this plugin is present, it jumps right in
 and sets the correct classes for you.
 
-## PHP media experience switcher example
+## PHP element queries switcher example
 
 This example is simple, but illustrates the use of the conditional classes in
 your project for enhancing user's experience.
@@ -68,13 +68,13 @@ your project for enhancing user's experience.
 
 if (isset($_GET['experience'])) {
     if ($_GET['experience']==='desktop') {
-        $experience_classes = "responds-to-media-experience media-experience-desktop media-experience-desktop--small media-experience-width-13 media-experience-since-phone media-experience-since-tablet media-experience-since-desktop";
+        $experience_classes = "is-responsive eq-width-desktop eq-width-desktop-small eq-width-13 eq-width-since-phone eq-width-since-tablet eq-width-since-desktop";
     } elseif ($_GET['eperience']==='phone') {
-        $experience_classes = "media-experience-phone media-experience-phone--small media-experience-width-3 media-experience-since-phone";
+        $experience_classes = "eq-width-phone eq-width-phone-small eq-width-3 eq-width-since-phone";
     }
 } else {
     // Default/initial experience is set to tablet
-    $experience_classes = "responds-to-media-experience media-experience-tablet media-experience-tablet--small media-experience-width-9 media-experience-since-phone media-experience-since-tablet";
+    $experience_classes = "is-responsive eq-width-tablet eq-width-tablet-small eq-width-9 eq-width-since-phone eq-width-since-tablet";
 }
 ?><body class="<?=$experience_classes?>">
 ...
@@ -84,21 +84,21 @@ if (isset($_GET['experience'])) {
 Renders by default as:
 
 ```html
-<body class="media-experience-tablet
-             media-experience-tablet--small
-             media-experience-width-9
-             media-experience-since-phone
-             media-experience-since-tablet
+<body class="eq-width-tablet
+             eq-width-tablet--small
+             eq-width-9
+             eq-width-since-phone
+             eq-width-since-tablet
 ">...</body>
 ```
 
 On the other hand, request with `?experience=phone` will result in:
 
 ```html
-<body class="media-experience-phone
-             media-experience-phone--small
-             media-experience-width-3
-             media-experience-since-phone
+<body class="eq-width-phone
+             eq-width-phone--small
+             eq-width-width-3
+             eq-width-since-phone
 ">...</body>
 ```
 
@@ -108,6 +108,9 @@ On the other hand, request with `?experience=phone` will result in:
 
 ## Changelog
 
+
+- v0.3.3 - Rewrites, renamed to elementQueriesJS
+  ...
 - v0.2.2 - Add height breakpoints + orientation classes
 - v0.2.1 - Fixes to previous release
 - v0.2.0 - Complete rewrite
@@ -129,8 +132,8 @@ Building mobile-first responsive website is basically:
    1. write `@media (min-width: 60em) { #element {...} }`
    1. repeat for each element, each device size...
 
-With this plugin it's same as `.media-experience-since-tablet #element { ... }`.
-`since-tablet` is more semantic and you can change WHAT is tablet just by
+With this plugin it's same as `.eq-width-since-tablet #element { ... }`.
+`width-since-tablet` is more semantic and you can change WHAT is tablet just by
 changing plugin's module (which is 80 by the way).
 
 Having width-9 means there is space for 9 columns available for extra control.
